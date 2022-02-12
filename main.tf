@@ -25,7 +25,7 @@ data "azurerm_client_config" "current" {}
 # Create our Resource Group - foxlab-RG
 resource "azurerm_resource_group" "rg" {
   name     = "foxlab-app01"
-  location = "UK South"
+  location = "UKSouth"
 }
 # Create our Virtual Network - foxlab-VNET
 resource "azurerm_virtual_network" "vnet" {
@@ -86,7 +86,7 @@ resource "azurerm_virtual_machine" "foxlabvm01" {
   os_profile {
     computer_name  = "foxlabvm01"
     admin_username = "foxlab"
-    admin_password = "Password123$"
+    admin_password = "Testing123!"
   }
   os_profile_windows_config {
   }
