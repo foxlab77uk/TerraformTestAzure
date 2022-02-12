@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "jonnychipz-infra"
-    storage_account_name = "jonnychipztstate"
+    resource_group_name  = "foxlab-infra"
+    storage_account_name = "foxlabtstate"
     container_name       = "tstate"
-    key                  = "77Q4LUB5o9wRdbPYDt+0kGZP+L8Sj9E/FNXg7lZBQS5z3mLod5cyan4wA19CR1SmlqIRUFQfhuQrPVaGzNhjGw=="
+    key                  = "jzK/iOux1xZ4cNiSLTjI73Hka/qcBitpdECObruUABu7bmi8WO2NL0jeBnd9zEDnWrZsXF/6WX9BbYBgCLwezw=="
   }
 
   required_providers {
@@ -22,14 +22,14 @@ provider "azurerm" {
   }
 }
 data "azurerm_client_config" "current" {}
-# Create our Resource Group - Jonnychipz-RG
+# Create our Resource Group - foxlab-RG
 resource "azurerm_resource_group" "rg" {
-  name     = "jonnychipz-app01"
+  name     = "foxlab-app01"
   location = "UK South"
 }
-# Create our Virtual Network - Jonnychipz-VNET
+# Create our Virtual Network - foxlab-VNET
 resource "azurerm_virtual_network" "vnet" {
-  name                = "jonnychipzvnet"
+  name                = "foxlabvnet"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -41,20 +41,20 @@ resource "azurerm_subnet" "sn" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
-# Create our Azure Storage Account - jonnychipzsa
-resource "azurerm_storage_account" "jonnychipzsa" {
-  name                     = "jonnychipzsa"
+# Create our Azure Storage Account - foxlabsa
+resource "azurerm_storage_account" "foxlabsa" {
+  name                     = "foxlabsa"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   tags = {
-    environment = "jonnychipzenv1"
+    environment = "foxlabenv1"
   }
 }
 # Create our vNIC for our VM and assign it to our Virtual Machines Subnet
 resource "azurerm_network_interface" "vmnic" {
-  name                = "jonnychipzvm01nic"
+  name                = "foxlabvm01nic"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -64,9 +64,9 @@ resource "azurerm_network_interface" "vmnic" {
     private_ip_address_allocation = "Dynamic"
   }
 }
-# Create our Virtual Machine - Jonnychipz-VM01
-resource "azurerm_virtual_machine" "jonnychipzvm01" {
-  name                  = "jonnychipzvm01"
+# Create our Virtual Machine - foxlab-VM01
+resource "azurerm_virtual_machine" "foxlabvm01" {
+  name                  = "foxlabvm01"
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.vmnic.id]
@@ -78,14 +78,14 @@ resource "azurerm_virtual_machine" "jonnychipzvm01" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "jonnychipzvm01os"
+    name              = "foxlabvm01os"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "jonnychipzvm01"
-    admin_username = "jonnychipz"
+    computer_name  = "foxlabvm01"
+    admin_username = "foxlab"
     admin_password = "Password123$"
   }
   os_profile_windows_config {
