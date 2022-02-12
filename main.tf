@@ -41,6 +41,15 @@ resource "azurerm_subnet" "sn" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
+
+# Create our Second Subnet - Virtual Machines
+resource "azurerm_subnet" "sn" {
+  name                 = "VMNet2"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
 # Create our Azure Storage Account - foxlabsa
 resource "azurerm_storage_account" "foxlabsa" {
   name                     = "foxlabsa"
