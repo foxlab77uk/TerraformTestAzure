@@ -85,7 +85,7 @@ resource "azurerm_virtual_machine" "foxlabvm01" {
   }
   os_profile {
     computer_name  = "foxlabvm01"
-    admin_username = "foxlab"
+    admin_username = "foxlabadmin"
     admin_password = "Testing123!"
   }
   os_profile_windows_config {
