@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "foxlab-infra"
     storage_account_name = "foxlabtstate"
     container_name       = "tstate"
-    key                  = "jzK/iOux1xZ4cNiSLTjI73Hka/qcBitpdECObruUABu7bmi8WO2NL0jeBnd9zEDnWrZsXF/6WX9BbYBgCLwezw=="
+    key                  = "...replace key with secret..."
   }
 
   required_providers {
